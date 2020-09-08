@@ -1,0 +1,16 @@
+language: java
+
+env:
+  global:
+    - CODECOV_TOKEN=280d69e9-80fa-4eec-a90d-8fcbefd31fef
+    - CODACY_PROJECT_TOKEN=937428049a414fa9bb6508ce459fb98c
+jdk:
+  - openjdk11
+script:
+  - ./mvnw clean install
+
+notifications:
+  email: rakesh8693@gmail.com 
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+  - bash <(curl -Ls https://coverage.codacy.com/get.sh) report
