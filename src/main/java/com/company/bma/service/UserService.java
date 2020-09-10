@@ -4,12 +4,12 @@ import com.company.bma.model.User;
 
 public interface UserService {
 	
-	Void createUser(User user);
+	void createUser(User user);
 
 	User retrieveUserById(Integer id);
 
-	Void updateUser(User user);
+	void updateUser(Integer id,User user);
 
-	Void deleteUserById(Integer id);
+	void deleteUserById(Integer id);
 
 }

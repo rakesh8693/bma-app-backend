@@ -1,11 +1,10 @@
 package com.company.bma.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@AllArgsConstructor
+
+@NoArgsConstructor
 public enum RoleType {
-	ADMIN(100), USER(101);
-	@Getter
-	private Integer value;
+	ADMIN,
+	USER
 }

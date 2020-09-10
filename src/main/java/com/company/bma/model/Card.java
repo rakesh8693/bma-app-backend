@@ -12,10 +12,19 @@
 
 package com.company.bma.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -24,22 +33,23 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
+@Entity
 public class Card {
-
-	private Long id;
-
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "cardid")
+	private Integer id;
+	@NonNull
 	private String title;
-
+	@NonNull
 	private String description;
-
+	@NonNull
 	private String icon;
-
-	private GroupCategory groupCategory;
-
-	private String groupname = null;
+	@NonNull
+	private Integer validate;
 
 }

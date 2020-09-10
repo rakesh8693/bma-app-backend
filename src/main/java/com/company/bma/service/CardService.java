@@ -2,15 +2,16 @@ package com.company.bma.service;
 
 import java.util.List;
 import com.company.bma.model.Card;
+import com.company.bma.model.CardRequest;
 
 public interface CardService {
 
-	Void createCard(Card card);
+	void createCard(Integer id,CardRequest card);
 
-	List<Card> retrieveCard(Integer id, Integer groupBy, String groupName);
+	List<Card> retrieveCard(Integer id);
 
-	Void updateCard(Card card);
+	void updateCard(Integer id,CardRequest card);
 
-	Void deleteCard(Integer id);
+	void deleteCard(Integer id);
 
 }

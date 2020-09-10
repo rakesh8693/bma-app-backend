@@ -2,17 +2,19 @@ package com.company.bma.exception;
 
 import javax.validation.ConstraintViolationException;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+
+import com.company.bma.model.ApiError;
 
 import lombok.extern.log4j.Log4j2;
 
 @Log4j2
 @ControllerAdvice
-public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHandler{
+public class GlobalControllerExceptionHandler{
 	
   @ExceptionHandler(value=ConstraintViolationException.class)
   private ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException ex, WebRequest request){
@@ -30,7 +32,8 @@ public class GlobalControllerExceptionHandler extends ResponseEntityExceptionHan
   }
   
   @ExceptionHandler(value=Generic404Exception.class)
-  private ResponseEntity<Object> handleGeneric404Exception(Generic404Exception ex, WebRequest request){
-	  return null;
+  private ResponseEntity<ApiError> handleGeneric404Exception(Generic404Exception ex, WebRequest request){
+	  log.error("Invalid request---"+request.getContextPath());
+	  return new ResponseEntity<ApiError>(new ApiError(ex.getMessage(),ex.getDescription()),HttpStatus.NOT_FOUND) ;
   }
 }

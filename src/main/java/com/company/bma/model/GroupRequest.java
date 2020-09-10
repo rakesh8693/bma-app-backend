@@ -24,6 +24,10 @@ import lombok.ToString;
 @ToString
 public class GroupRequest {
 	private GroupCategory groupCategory;
-
+	
 	private String groupname;
+	
+	private Integer userid;
+	
+	private Integer cardid;
 }

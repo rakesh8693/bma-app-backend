@@ -2,6 +2,8 @@ package com.company.bma.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.http.ResponseEntity;
 
 import com.company.bma.model.GenericResponse;
@@ -25,11 +27,19 @@ public interface ShortUrlSwaggerDoc {
 			@ApiResponse(description = "ResourceNotFound", responseCode = "404", content = @Content(schema = @Schema(implementation = GenericResponse.class))) })
 	ResponseEntity<Void> createShortUrl(ShortUrlRequest shortUrlRequest);
 
-	@Operation(tags = "ShortUrlController", summary = "Retrieve ShortUrl", description = "This api is used to retrieve shorturl", parameters = {
-			@Parameter(name = "id", description = "ShortUrl Id", required = false, in = ParameterIn.QUERY), }, responses = {
-					@ApiResponse(description = "Successful operation", responseCode = "200", content = @Content(schema = @Schema(implementation = ShortUrl.class))),
+	@Operation(tags = "ShortUrlController", summary = "Retrieve ShortUrls By UserId", description = "This api is used to retrieve shorturl",parameters = {
+			@Parameter(name = "id", description = "UserId", required = true, in = ParameterIn.PATH) }, responses = {
+			@ApiResponse(description = "Successful operation", responseCode = "200", content = @Content(schema = @Schema(implementation = ShortUrl.class))),
+			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
+			@ApiResponse(description = "Forbidden", responseCode = "403", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
+			@ApiResponse(description = "ResourceNotFound", responseCode = "404", content = @Content(schema = @Schema(implementation = GenericResponse.class))) })
+	ResponseEntity<List<ShortUrl>> retrieveShortUrls(Integer id);
+
+	@Operation(tags = "ShortUrlController", summary = "Redirect ShortUrl", description = "This api is used to redirect shorturl to longurl", parameters = {
+			@Parameter(name = "id", description = "ShortUrl Id", required = true, in = ParameterIn.PATH) }, responses = {
+					@ApiResponse(description = "Successful operation", responseCode = "302"),
 					@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
 					@ApiResponse(description = "Forbidden", responseCode = "403", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
 					@ApiResponse(description = "ResourceNotFound", responseCode = "404", content = @Content(schema = @Schema(implementation = GenericResponse.class))) })
-	ResponseEntity<List<ShortUrl>> retrieveShortUrl(Integer id);
+	ResponseEntity<Void> redirectShortUrl(Integer id,HttpServletResponse httpResponse);
 }
