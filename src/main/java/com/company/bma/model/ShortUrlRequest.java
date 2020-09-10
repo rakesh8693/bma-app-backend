@@ -29,5 +29,5 @@ public class ShortUrlRequest {
 
 	private Date expiryDate;
 
-	private String name;
+	private Integer userId;
 }

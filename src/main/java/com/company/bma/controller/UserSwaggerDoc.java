@@ -31,13 +31,13 @@ public interface UserSwaggerDoc {
 
 	ResponseEntity<User> retrieveUserById(Integer id);
 
-	@Operation(tags = "UserController", summary = "Update User", description = "This api is used to update user", requestBody = @RequestBody(description = "User request body", required = true, content = @Content(schema = @Schema(implementation = User.class))), responses = {
+	@Operation(tags = "UserController", summary = "Update User", description = "This api is used to update user", parameters = @Parameter(name = "id", description = "User Id", required = true, in = ParameterIn.PATH), requestBody = @RequestBody(description = "User request body", required = true, content = @Content(schema = @Schema(implementation = User.class))), responses = {
 			@ApiResponse(description = "Successful operation", responseCode = "204"),
 			@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
 			@ApiResponse(description = "Forbidden", responseCode = "403", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
 			@ApiResponse(description = "ResourceNotFound", responseCode = "404", content = @Content(schema = @Schema(implementation = GenericResponse.class))) })
 
-	ResponseEntity<Void> updateUser(User user);
+	ResponseEntity<Void> updateUser(Integer id, User user);
 
 	@Operation(tags = "UserController", summary = "Delete User", description = "This api is used to delete user", parameters = {
 			@Parameter(name = "id", description = "User Id", required = true, in = ParameterIn.PATH), }, responses = {

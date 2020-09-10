@@ -10,6 +10,16 @@
 
 package com.company.bma.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -24,10 +34,17 @@ import lombok.ToString;
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class Group {
-
+@Entity
+@Table(name="GROUPMANAGER")
+public class Group {	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name = "groupid")
+	@Schema(hidden = true)
 	private Integer id;
 
+	@Enumerated(EnumType.STRING)
+	@Column(name = "GROUPCATEGORY")
 	private GroupCategory groupCategory;
 
 	private String groupname;
