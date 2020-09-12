@@ -1,5 +1,7 @@
 package com.company.bma.controller;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 
 import com.company.bma.model.GenericResponse;
@@ -22,7 +24,7 @@ public interface UserSwaggerDoc {
 			@ApiResponse(description = "ResourceNotFound", responseCode = "404", content = @Content(schema = @Schema(implementation = GenericResponse.class))) })
 	ResponseEntity<Void> createUser(User user);
 
-	@Operation(tags = "UserController", summary = "Retrieve User", description = "This api is used to retrieve user", parameters = {
+	@Operation(tags = "UserController", summary = "Retrieve User By Id", description = "This api is used to retrieve user by id", parameters = {
 			@Parameter(name = "id", description = "User Id", required = true, in = ParameterIn.PATH), }, responses = {
 					@ApiResponse(description = "Successful operation", responseCode = "200", content = @Content(schema = @Schema(implementation = User.class))),
 					@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
@@ -30,6 +32,14 @@ public interface UserSwaggerDoc {
 					@ApiResponse(description = "ResourceNotFound", responseCode = "404", content = @Content(schema = @Schema(implementation = GenericResponse.class))) })
 
 	ResponseEntity<User> retrieveUserById(Integer id);
+	
+	@Operation(tags = "UserController", summary = "Retrieve Users", description = "This api is used to retrieve users", responses = {
+					@ApiResponse(description = "Successful operation", responseCode = "200", content = @Content(schema = @Schema(implementation = User.class))),
+					@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
+					@ApiResponse(description = "Forbidden", responseCode = "403", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
+					@ApiResponse(description = "ResourceNotFound", responseCode = "404", content = @Content(schema = @Schema(implementation = GenericResponse.class))) })
+
+	ResponseEntity<List<User>> retrieveUsers();
 
 	@Operation(tags = "UserController", summary = "Update User", description = "This api is used to update user", parameters = @Parameter(name = "id", description = "User Id", required = true, in = ParameterIn.PATH), requestBody = @RequestBody(description = "User request body", required = true, content = @Content(schema = @Schema(implementation = User.class))), responses = {
 			@ApiResponse(description = "Successful operation", responseCode = "204"),
@@ -41,7 +51,7 @@ public interface UserSwaggerDoc {
 
 	@Operation(tags = "UserController", summary = "Delete User", description = "This api is used to delete user", parameters = {
 			@Parameter(name = "id", description = "User Id", required = true, in = ParameterIn.PATH), }, responses = {
-					@ApiResponse(description = "Successful operation", responseCode = "200"),
+					@ApiResponse(description = "Successful operation", responseCode = "202"),
 					@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
 					@ApiResponse(description = "Forbidden", responseCode = "403", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
 					@ApiResponse(description = "ResourceNotFound", responseCode = "404", content = @Content(schema = @Schema(implementation = GenericResponse.class))) })

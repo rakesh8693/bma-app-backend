@@ -23,16 +23,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
@@ -45,10 +46,13 @@ public class User {
 	@Schema(hidden = true)
 	private Integer id;
 
+	@NonNull
 	private String username;
 
+	@NonNull
 	private String email;
 
+	@NonNull
 	private String password;
 
 	@Enumerated(EnumType.STRING)
@@ -65,10 +69,5 @@ public class User {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "userid")
 	private List<Card> cards;
-
-	@Schema(hidden = true)
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "userid")
-	private List<Group> groups;
 
 }

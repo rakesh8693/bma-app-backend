@@ -42,4 +42,12 @@ public interface ShortUrlSwaggerDoc {
 					@ApiResponse(description = "Forbidden", responseCode = "403", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
 					@ApiResponse(description = "ResourceNotFound", responseCode = "404", content = @Content(schema = @Schema(implementation = GenericResponse.class))) })
 	ResponseEntity<Void> redirectShortUrl(Integer id,HttpServletResponse httpResponse);
+	
+	@Operation(tags = "ShortUrlController", summary = "Share ShortUrl", description = "This api is used to share shorturl", parameters = {
+			@Parameter(name = "id", description = "ShortUrl Id", required = true, in = ParameterIn.PATH) }, responses = {
+					@ApiResponse(description = "Successful operation", responseCode = "200"),
+					@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
+					@ApiResponse(description = "Forbidden", responseCode = "403", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
+					@ApiResponse(description = "ResourceNotFound", responseCode = "404", content = @Content(schema = @Schema(implementation = GenericResponse.class))) })
+	void shareShortUrl(Integer id,HttpServletResponse httpResponse);
 }

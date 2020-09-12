@@ -28,6 +28,4 @@ public class GroupRequest {
 	private String groupname;
 	
 	private Integer userid;
-	
-	private Integer cardid;
 }

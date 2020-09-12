@@ -13,4 +13,6 @@ public interface ShortUrlService {
 	List<ShortUrl> retrieveAllShortUrl(Integer id);
 
 	String redirectShortUrl(Integer id) throws IOException;
+	
+	ShortUrl shareShortUrl(Integer id);
 }

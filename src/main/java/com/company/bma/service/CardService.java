@@ -3,6 +3,7 @@ package com.company.bma.service;
 import java.util.List;
 import com.company.bma.model.Card;
 import com.company.bma.model.CardRequest;
+import com.company.bma.model.GroupCategory;
 
 public interface CardService {
 
@@ -13,5 +14,7 @@ public interface CardService {
 	void updateCard(Integer id,CardRequest card);
 
 	void deleteCard(Integer id);
+	
+	List<Card> changesToValidate(Integer userId,GroupCategory grpCategory,String grpName);
 
 }

@@ -16,6 +16,7 @@ import com.company.bma.model.User;
 import com.company.bma.repository.ShortUrlRepository;
 import com.company.bma.repository.UserRepository;
 import com.company.bma.service.ShortUrlService;
+import com.company.bma.utils.ExceptionUtils;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -47,6 +48,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
 		userRepository.save(user);
 	}
 
+
 	@Override
 	public List<ShortUrl> retrieveAllShortUrl(Integer id) {
 		User user = getUserById(id);
@@ -67,10 +69,18 @@ public class ShortUrlServiceImpl implements ShortUrlService {
 	private User getUserById(Integer userId) {
 		Optional<User> findById = userRepository.findById(userId);
 		if (!findById.isPresent()) {
-			Generic404Exception generic404Exception = new Generic404Exception("Not_Found", "User Not Found");
-			throw generic404Exception;
+			throw ExceptionUtils.generic404Exception("User Not Found");
 		}
 		return findById.get();
+	}
+
+	@Override
+	public ShortUrl shareShortUrl(Integer id) {
+		Optional<ShortUrl> shortUrl = shortUrlRepository.findById(id);
+		if(!shortUrl.isPresent()) {
+			throw ExceptionUtils.generic404Exception("Short Url Not Found");
+		}
+		return shortUrl.get();
 	}
 
 }

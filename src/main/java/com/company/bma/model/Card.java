@@ -18,8 +18,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,7 +38,7 @@ import lombok.ToString;
 @Entity
 public class Card {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "cardid")
 	private Integer id;
 	@NonNull
@@ -51,5 +49,9 @@ public class Card {
 	private String icon;
 	@NonNull
 	private Integer validate;
-
-}
+	
+	/*
+	 * @OneToOne(mappedBy = "card") private ShortUrl shortUrl;
+	 * 
+	 * //cascade = CascadeType.ALL, //fetch = FetchType.LAZY
+	 */}

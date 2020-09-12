@@ -1,6 +1,7 @@
 package com.company.bma.controller.Impl;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import com.company.bma.controller.ShortUrlSwaggerDoc;
 import com.company.bma.model.ShortUrl;
 import com.company.bma.model.ShortUrlRequest;
 import com.company.bma.service.ShortUrlService;
+import com.company.bma.utils.CsvUtils;
 
 
 @RestController
@@ -45,5 +47,16 @@ public class ShortUrlController implements ShortUrlSwaggerDoc {
 			e.printStackTrace();
 		}
     	return new ResponseEntity<Void>(HttpStatus.MOVED_PERMANENTLY);
+	}
+
+    @GetMapping("/shareShortUrl/{id}")
+	public void shareShortUrl(@PathVariable Integer id,HttpServletResponse response) {
+    	response.setContentType("text/csv");
+        response.setHeader("Content-Disposition", "attachment; filename=shortUrl.csv");
+		try {
+			CsvUtils.downloadCsv(response.getWriter(),Arrays.asList(shortUrlService.shareShortUrl(id)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
