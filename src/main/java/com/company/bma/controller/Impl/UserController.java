@@ -1,5 +1,7 @@
 package com.company.bma.controller.Impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +43,12 @@ public class UserController implements UserSwaggerDoc {
 	@DeleteMapping("/user/{id}")
 	public ResponseEntity<Void> deleteUserById(@PathVariable Integer id) {
 		userService.deleteUserById(id);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
+	}
+
+	@GetMapping("/users")
+	public ResponseEntity<List<User>> retrieveUsers() {
+		return new ResponseEntity<List<User>>(userService.retrieveUsers(),HttpStatus.OK);
 	}
 
 }

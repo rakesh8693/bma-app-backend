@@ -25,7 +25,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class CardRequest {
-
+	
+	private Integer surlId;
+	
 	private String title;
 
 	private String description;

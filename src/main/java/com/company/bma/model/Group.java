@@ -10,6 +10,9 @@
 
 package com.company.bma.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,20 +20,23 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 
 @Getter
 @Setter
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
@@ -45,7 +51,20 @@ public class Group {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "GROUPCATEGORY")
+	@NonNull
 	private GroupCategory groupCategory;
 
-	private String groupname;
+	@NonNull
+	@Column(name="GROUPNAME")
+	private String groupName;
+	
+	@Schema(hidden = true)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "groupid")
+	private List<User> users;
+	
+	@Schema(hidden = true)
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "groupid")
+	private List<Card> cards;
 }

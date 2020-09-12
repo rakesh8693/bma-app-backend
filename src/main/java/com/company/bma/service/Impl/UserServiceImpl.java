@@ -1,5 +1,6 @@
 package com.company.bma.service.Impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,11 @@ public class UserServiceImpl implements UserService {
 			throw generic404Exception;
 		}
 		return findById.get();
+	}
+
+	@Override
+	public List<User> retrieveUsers() {
+		return userRepository.findAll();
 	}
 
 }

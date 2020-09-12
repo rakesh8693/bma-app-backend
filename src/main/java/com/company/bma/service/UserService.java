@@ -1,5 +1,7 @@
 package com.company.bma.service;
 
+import java.util.List;
+
 import com.company.bma.model.User;
 
 public interface UserService {
@@ -11,5 +13,7 @@ public interface UserService {
 	void updateUser(Integer id,User user);
 
 	void deleteUserById(Integer id);
+
+	List<User> retrieveUsers();
 
 }
