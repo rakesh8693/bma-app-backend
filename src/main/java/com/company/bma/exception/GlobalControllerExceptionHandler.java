@@ -22,18 +22,26 @@ public class GlobalControllerExceptionHandler{
   }
   
   @ExceptionHandler(value=Generic401Exception.class)
-  private ResponseEntity<Object> handleGeneric401Exception(Generic401Exception ex, WebRequest request){
-	  return null;
+  private ResponseEntity<ApiError> handleGeneric401Exception(Generic401Exception ex, WebRequest request){
+	  log.error("Invalid request---"+request.getContextPath());
+	  return new ResponseEntity<ApiError>(new ApiError(ex.getMessage(),ex.getDescription()),HttpStatus.UNAUTHORIZED) ;
   }
   
   @ExceptionHandler(value=Generic403Exception.class)
-  private ResponseEntity<Object> handleGeneric403Exception(Generic403Exception ex, WebRequest request){
-	  return null;
+  private ResponseEntity<ApiError> handleGeneric403Exception(Generic403Exception ex, WebRequest request){
+	  log.error("Invalid request---"+request.getContextPath());
+	  return new ResponseEntity<ApiError>(new ApiError(ex.getMessage(),ex.getDescription()),HttpStatus.FORBIDDEN) ;
   }
   
   @ExceptionHandler(value=Generic404Exception.class)
   private ResponseEntity<ApiError> handleGeneric404Exception(Generic404Exception ex, WebRequest request){
 	  log.error("Invalid request---"+request.getContextPath());
 	  return new ResponseEntity<ApiError>(new ApiError(ex.getMessage(),ex.getDescription()),HttpStatus.NOT_FOUND) ;
+  }
+  
+  @ExceptionHandler(value=Generic406Exception.class)
+  private ResponseEntity<ApiError> handleGeneric406Exception(Generic406Exception ex, WebRequest request){
+	  log.error("Invalid request---"+request.getContextPath());
+	  return new ResponseEntity<ApiError>(new ApiError(ex.getMessage(),ex.getDescription()),HttpStatus.NOT_ACCEPTABLE) ;
   }
 }

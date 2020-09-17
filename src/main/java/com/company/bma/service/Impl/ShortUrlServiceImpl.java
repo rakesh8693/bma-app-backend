@@ -38,7 +38,7 @@ public class ShortUrlServiceImpl implements ShortUrlService {
 		log.info("Requested url--" + shortUrlRequest.getLongurl());
 		String name = "tiny";
 		User user = getUserById(shortUrlRequest.getUserId());
-		name = user.getUsername();
+		name = user.getUserName();
 		String shortName = RandomStringUtils.randomAlphanumeric(7);
 		String generatedUrl = domain + "/" + name + "/" + shortName;
 		log.info("Generated url--" + generatedUrl);

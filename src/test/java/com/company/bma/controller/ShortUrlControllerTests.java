@@ -21,6 +21,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.company.bma.controller.Impl.ShortUrlController;
 import com.company.bma.model.ShortUrlRequest;
+import com.company.bma.security.CustomAuthenticationProvider;
 import com.company.bma.service.ShortUrlService;
 import com.company.bma.utils.JsonUtils;
 
@@ -35,6 +36,9 @@ public class ShortUrlControllerTests {
 	
 	@MockBean
 	private ShortUrlService shortUrlService;
+	
+	@MockBean
+	private CustomAuthenticationProvider customAuthenticationProvider;
 
 	@Test
 	public void testCreateShortUrlApi() throws Exception {

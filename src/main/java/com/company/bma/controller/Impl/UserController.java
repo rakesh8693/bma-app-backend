@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.company.bma.controller.UserSwaggerDoc;
 import com.company.bma.model.User;
 import com.company.bma.service.UserService;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 
 @RestController
 public class UserController implements UserSwaggerDoc {
@@ -24,14 +27,10 @@ public class UserController implements UserSwaggerDoc {
 	UserService userService;
 
 	@PostMapping("/user")
+	@SecurityRequirements(value = {}) 
 	public ResponseEntity<Void> createUser(@RequestBody User user) {
 		userService.createUser(user);
 		return new ResponseEntity<Void>(HttpStatus.CREATED);
-	}
-
-	@GetMapping("/user/{id}")
-	public ResponseEntity<User> retrieveUserById(@PathVariable Integer id) {
-		return new ResponseEntity<User>(userService.retrieveUserById(id),HttpStatus.OK);
 	}
 
 	@PutMapping("/user/{id}")
@@ -49,6 +48,11 @@ public class UserController implements UserSwaggerDoc {
 	@GetMapping("/users")
 	public ResponseEntity<List<User>> retrieveUsers() {
 		return new ResponseEntity<List<User>>(userService.retrieveUsers(),HttpStatus.OK);
+	}
+	
+	@GetMapping("/users/login")
+	public ResponseEntity<User> userLogin(@RequestParam String userName,@RequestParam String password) {
+		return new ResponseEntity<User>(userService.userLogin(userName, password),HttpStatus.OK);
 	}
 
 }

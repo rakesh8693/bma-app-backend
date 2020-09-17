@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.company.bma.model.Card;
 import com.company.bma.model.GenericResponse;
-import com.company.bma.model.Group;
 import com.company.bma.model.GroupCategory;
 import com.company.bma.model.GroupRequest;
 
@@ -41,7 +40,7 @@ public interface GroupSwaggerDoc {
 	@Operation(tags = "GroupController", summary = "Retrieve Card by Group Category And Name", description = "This api is used to retrieve cards of groups", parameters = {
 			@Parameter(name = "groupCategory", description = "Categories of group", required = true, in = ParameterIn.PATH),
 			@Parameter(name = "groupName", description = "Group Name", required = true, in = ParameterIn.PATH) }, responses = {
-					@ApiResponse(description = "Successful operation", responseCode = "200", content = @Content(schema = @Schema(implementation = Group.class))),
+					@ApiResponse(description = "Successful operation", responseCode = "200", content = @Content(schema = @Schema(implementation = Card.class))),
 					@ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
 					@ApiResponse(description = "Forbidden", responseCode = "403", content = @Content(schema = @Schema(implementation = GenericResponse.class))),
 					@ApiResponse(description = "ResourceNotFound", responseCode = "404", content = @Content(schema = @Schema(implementation = GenericResponse.class))) })

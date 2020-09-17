@@ -53,7 +53,7 @@ public class CardServiceImpl implements CardService {
 			throw ExceptionUtils.generic404Exception("ShortUrl Not Found For User");
 		}
 		List<Card> cards = user.getCards();
-		Card card = new Card(cardRequest.getTitle(), cardRequest.getIcon(), cardRequest.getDescription(), 0);
+		Card card = new Card(cardRequest.getTitle(),cardRequest.getDescription(),cardRequest.getIcon(), 0);
 		shortUrl.get().setCard(card);
 		cards.add(card);
 		user.setCards(cards);
@@ -76,6 +76,7 @@ public class CardServiceImpl implements CardService {
 		card.get().setDescription(cardRequest.getDescription());
 		card.get().setIcon(cardRequest.getIcon());
 		card.get().setTitle(cardRequest.getTitle());
+		card.get().setValidate(1);
 		cardRepository.save(card.get());
 	}
 
