@@ -14,7 +14,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.company.bma.exception.Generic404Exception;
 import com.company.bma.model.User;
 import com.company.bma.repository.UserRepository;
 import com.company.bma.service.Impl.UserServiceImpl;
@@ -35,17 +34,6 @@ public class UserServiceTests {
 		verify(userRepository, times(1)).save(user);
 	}
 	
-	@Test
-	public void RetrieveUserById() {
-		when(userRepository.findById(Mockito.anyInt())).thenReturn(Optional.of(new User("testuser","testuser@gmail.com","testuser")));
-		userService.retrieveUserById(1);
-	}
-	
-	@Test(expected=Generic404Exception.class)
-	public void RetrieveUserByIdThrowUserNotFoundException() {
-		when(userRepository.findById(Mockito.anyInt())).thenReturn(Optional.empty());
-		userService.retrieveUserById(1);
-	}
 
 	@Test
 	public void UpdateUser() {
@@ -66,6 +54,12 @@ public class UserServiceTests {
 	public void RetrieveUsers() {
 		when(userRepository.findAll()).thenReturn(new ArrayList<User>());
 		userService.retrieveUsers();
+	}
+	
+	@Test
+	public void UserLogin() {
+		when(userRepository.findByUserNameAndPassword(Mockito.anyString(), Mockito.anyString())).thenReturn(Optional.of(new User("testuser","testuser@gmail.com","testuser")));
+		userService.userLogin("user","test");
 	}
 
 }

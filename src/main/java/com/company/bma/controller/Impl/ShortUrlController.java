@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,7 @@ import com.company.bma.utils.CsvUtils;
 
 
 @RestController
+@CrossOrigin(origins = "*")
 public class ShortUrlController implements ShortUrlSwaggerDoc {
 	
 	@Autowired
@@ -39,15 +41,6 @@ public class ShortUrlController implements ShortUrlSwaggerDoc {
 		return new ResponseEntity<List<ShortUrl>>(shortUrlService.retrieveAllShortUrl(id),HttpStatus.OK);
 	}
     
-    @PostMapping("/redirectShortUrl/{id}")
-	public ResponseEntity<Void> redirectShortUrl(@PathVariable Integer id,HttpServletResponse httpResponse) {
-    	try {
-			httpResponse.sendRedirect(shortUrlService.redirectShortUrl(id));		
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-    	return new ResponseEntity<Void>(HttpStatus.MOVED_PERMANENTLY);
-	}
 
     @GetMapping("/shareShortUrl/{id}")
 	public void shareShortUrl(@PathVariable Integer id,HttpServletResponse response) {

@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.company.bma.controller.Impl.UserController;
 import com.company.bma.model.User;
+import com.company.bma.security.CustomAuthenticationProvider;
 import com.company.bma.service.UserService;
 import com.company.bma.utils.JsonUtils;
 
@@ -28,44 +29,43 @@ import com.company.bma.utils.JsonUtils;
 @AutoConfigureMockMvc(addFilters = false)
 @TestPropertySource("classpath:application.properties")
 public class UserControllerTests {
-	
+
 	@Autowired
 	private MockMvc mockMvc;
 
 	@MockBean
 	private UserService userService;
-	
+
+	@MockBean
+	private CustomAuthenticationProvider customAuthenticationProvider;
+
 	@Test
 	public void testCreateUserApi() throws Exception {
-		mockMvc.perform(post("/user")
-				.content(JsonUtils.asJsonString(new User("user","user@test","user")))
+		mockMvc.perform(post("/user").content(JsonUtils.asJsonString(new User("user", "user@test", "user")))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isCreated());
-	}
-	
-	@Test
-	public void testRetrieveUserById()throws Exception {
-		mockMvc.perform(get("/user/{id}", 1).accept(MediaType.APPLICATION_JSON)).andDo(print())
-		.andExpect(status().isOk());
 	}
 
 	@Test
 	public void testUpdateUserApi() throws Exception {
-		mockMvc.perform(put("/user/{id}",1)
-				.content(JsonUtils.asJsonString(new User("user","user@test","pass")))
+		mockMvc.perform(put("/user/{id}", 1).content(JsonUtils.asJsonString(new User("user", "user@test", "pass")))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(status().isNoContent());
 	}
-	
+
 	@Test
-	public void testDeleteUserById() throws Exception {
+	public void testDeleteUserByIdApi() throws Exception {
 		mockMvc.perform(delete("/user/{id}", 1)).andExpect(status().isAccepted());
 	}
-	
+
 	@Test
-	public void testRetrieveUser()throws Exception {
-		mockMvc.perform(get("/users").accept(MediaType.APPLICATION_JSON)).andDo(print())
-		.andExpect(status().isOk());
+	public void testRetrieveUserApi() throws Exception {
+		mockMvc.perform(get("/users").accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
 	}
 
+	@Test
+	public void testUserLogin() throws Exception {
+		mockMvc.perform(get("/users/login").queryParam("userName", "Test").queryParam("password", "Test")
+				.accept(MediaType.APPLICATION_JSON)).andDo(print()).andExpect(status().isOk());
+	}
 }

@@ -16,4 +16,6 @@ public interface UserService {
 
 	List<User> retrieveUsers();
 
+	User userLogin(String userName, String password);
+
 }

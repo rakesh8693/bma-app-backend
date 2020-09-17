@@ -11,12 +11,13 @@ import com.company.bma.model.RoleType;
 import com.company.bma.model.User;
 import com.company.bma.repository.UserRepository;
 import com.company.bma.service.UserService;
+import com.company.bma.utils.ExceptionUtils;
 
 import lombok.extern.log4j.Log4j2;
 
 @Service
 @Log4j2
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -24,6 +25,10 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void createUser(User user) {
 		log.info("createUser ----"+user.toString()+"-----");
+		Optional<User> userobj = userRepository.findByUserNameAndPassword(user.getUserName(),user.getPassword());
+		if(userobj.isPresent()) {
+			throw ExceptionUtils.generic406Exception("User Already Exists");
+		}
 		user.setRoleType(RoleType.USER);
 		userRepository.save(user);	
 	}
@@ -40,7 +45,7 @@ public class UserServiceImpl implements UserService {
 		User userObj = getUserById(id);
 		userObj.setEmail(user.getEmail());
 		userObj.setPassword(user.getPassword());
-		userObj.setUsername(user.getUsername());
+		userObj.setUserName(user.getUserName());
 		userRepository.save(userObj);	
 	}
 
@@ -63,6 +68,15 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> retrieveUsers() {
 		return userRepository.findAll();
+	}
+
+	@Override
+	public User userLogin(String userName, String password) {
+		Optional<User> userobj = userRepository.findByUserNameAndPassword(userName,password);
+		if(!userobj.isPresent()) {
+			throw ExceptionUtils.generic404Exception("User Doesnot Exists");
+		}
+		return userobj.get();
 	}
 
 }

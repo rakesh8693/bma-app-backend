@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import com.company.bma.controller.Impl.CardController;
 import com.company.bma.model.CardRequest;
+import com.company.bma.security.CustomAuthenticationProvider;
 import com.company.bma.service.CardService;
 import com.company.bma.utils.JsonUtils;
 
@@ -33,6 +34,9 @@ public class CardControllerTests {
 
 	@MockBean
 	private CardService CardService;
+	
+	@MockBean
+	private CustomAuthenticationProvider customAuthenticationProvider;
 
 	@Test
 	public void testCreateCardApi() throws Exception {
@@ -42,8 +46,9 @@ public class CardControllerTests {
 				.andExpect(status().isCreated());
 	}
 
+	
 	@Test
-	public void testRetrieveCard() throws Exception {
+	public void testRetrieveCardApi() throws Exception {
 		mockMvc.perform(get("/card/{id}", 1).accept(MediaType.APPLICATION_JSON)).andDo(print())
 				.andExpect(status().isOk());
 	}

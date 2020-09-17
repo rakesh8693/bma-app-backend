@@ -11,26 +11,27 @@
 	 */
 package com.company.bma.model;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
-@AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
 @ToString
 public class CardRequest {
-	
+	@NonNull
 	private Integer surlId;
-	
+	@NonNull
 	private String title;
-
+	@NonNull
 	private String description;
-
+	@NonNull
 	private String icon;
 }

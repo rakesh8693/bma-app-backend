@@ -50,8 +50,4 @@ public class Card {
 	@NonNull
 	private Integer validate;
 	
-	/*
-	 * @OneToOne(mappedBy = "card") private ShortUrl shortUrl;
-	 * 
-	 * //cascade = CascadeType.ALL, //fetch = FetchType.LAZY
-	 */}
+}

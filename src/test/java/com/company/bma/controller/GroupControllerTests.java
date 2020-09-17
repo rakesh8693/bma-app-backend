@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.company.bma.controller.Impl.GroupController;
 import com.company.bma.model.GroupCategory;
 import com.company.bma.model.GroupRequest;
+import com.company.bma.security.CustomAuthenticationProvider;
 import com.company.bma.service.GroupService;
 import com.company.bma.utils.JsonUtils;
 
@@ -33,6 +34,9 @@ public class GroupControllerTests {
 
 	@MockBean
 	private GroupService groupService;
+	
+	@MockBean
+	private CustomAuthenticationProvider customAuthenticationProvider;
 
 	@Test
 	public void testCreateGroupApi() throws Exception {

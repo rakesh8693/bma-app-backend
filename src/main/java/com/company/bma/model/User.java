@@ -47,7 +47,8 @@ public class User {
 	private Integer id;
 
 	@NonNull
-	private String username;
+	@Column(name="USERNAME")
+	private String userName;
 
 	@NonNull
 	private String email;
